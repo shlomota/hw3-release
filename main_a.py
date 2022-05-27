@@ -140,10 +140,23 @@ if __name__=='__main__':
     args = parse_arguments()
     if args.train:
         print('Training standard model...')
-        t = run_standard_training()
-        print(f'Time (in seconds) to complete standard training: {t:0.4f}')
+        # t = run_standard_training()
+        # print(f'Time (in seconds) to complete standard training: {t:0.4f}')
         print('Adversarially training a model...')
         t = run_free_adv_training()
         print(f'Time (in seconds) to complete free adversarial training: {t:0.4f}')
     else:
         run_evaluation()
+
+
+
+"""
+/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  import pandas.util.testing as tm
+Training standard model...
+/usr/local/lib/python3.7/dist-packages/torch/utils/data/dataloader.py:490: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  cpuset_checked))
+Time (in seconds) to complete standard training: 981.8386
+Adversarially training a model...
+Time (in seconds) to complete free adversarial training: 0.0001
+"""
