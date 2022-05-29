@@ -150,24 +150,13 @@ if __name__=='__main__':
 
 
 
+
 """
-/usr/local/lib/python3.7/dist-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  import pandas.util.testing as tm
-Training standard model...
-/usr/local/lib/python3.7/dist-packages/torch/utils/data/dataloader.py:490: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  cpuset_checked))
-Time (in seconds) to complete standard training: 981.8386
+Time (in seconds) to complete standard training: 289.6814
 Adversarially training a model...
-Time (in seconds) to complete free adversarial training: 469.2151
-"""
-
+Time (in seconds) to complete free adversarial training: 285.2583
 
 """
-Time (in seconds) to complete standard training: 1267.1469
-Adversarially training a model...
-Time (in seconds) to complete free adversarial training: 483.9196
-"""
-
 
 """
 

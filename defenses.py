@@ -102,6 +102,12 @@ class SmoothedModel():
         max confidence).
         """
         # FILL ME
+        for i in range(n):
+            import pdb;pdb.set_trace()
+            noise = torch.normal(0.0, std=self.sigma, size=[batch_size, x.shape[1], x.shape[2], x.shape[3]]).to(device)
+            x_noisy = noise + x
+            a = 5
+        self.model
         pass
         
     def certify(self, x, n0, n, alpha, batch_size):
@@ -121,7 +127,7 @@ class SmoothedModel():
         """
         
         # find prediction (top class c) - FILL ME
-        
+        counts = self._sample_under_noise(x, n0, batch_size)
         
         # compute lower bound on p_c - FILL ME
         
