@@ -69,7 +69,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
 
                 pert = eps * torch.sign(delta.grad)
                 # delta[0:inputs.size(0)] += pert.data
-                delta = torch.tensor((delta + pert.data).clamp_(-eps, eps), device=device).clone().detach().requires_grad_(True)
+                delta = (delta + pert.data).clamp_(-eps, eps).clone().detach().to(device).requires_grad_(True)
                 # delta.clamp_(-eps, eps)
                 count += 1
 
