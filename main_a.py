@@ -134,7 +134,7 @@ def run_evaluation():
         x_adv, y = utils.run_whitebox_attack(attack, loader_test, False, device, n_classes=4)
         sr = utils.compute_attack_success(model, x_adv, y, consts.BATCH_SIZE, False, device)
         print(f'\t- {mtype:10s}: {sr:0.4f}')
-        
+
 
 if __name__=='__main__':
     args = parse_arguments()

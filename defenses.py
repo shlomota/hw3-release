@@ -35,7 +35,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                            
 
     # init delta (adv. perturbation) - FILL ME
-    delta = torch.zeros([batch_size, loader_tr.dataset.data[0][0].shape[0], loader_tr.dataset.data[0][0].shape[1], loader_tr.dataset.data[0][0].shape[2]]).to(device)
+    delta = torch.zeros([batch_size, data_tr[0][0].shape[0], data_tr[0][0].shape[1], data_tr[0][0].shape[2]]).to(device)
     a = 5
 
     # total number of updates - FILL ME
@@ -59,6 +59,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
 
                 # Ascend on the global noise
                 noise_batch = torch.tensor(delta[0:inputs.size(0)], requires_grad=True).cuda()
+                # import pdb;pdb.set_trace()
                 in1 = inputs + noise_batch
                 in1.clamp_(0, 1.0)
                 # in1.sub_(mean).div_(std).
@@ -75,9 +76,13 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                 loss.backward()
 
                 # Update the noise for the next iteration
-                pert = lr_scheduler.get_lr() * torch.sign(noise_batch.grad)
+                # import pdb;pdb.set_trace()
+                lr = lr_scheduler.get_last_lr()
+                if type(lr) == list:
+                    lr = lr[-1]
+                pert = lr * torch.sign(noise_batch.grad)
                 # pert = fgsm(noise_batch.grad, configs.ADV.fgsm_step)
-                delta[0:input.size(0)] += pert.data
+                delta[0:inputs.size(0)] += pert.data
                 delta.clamp_(-eps, eps)
 
                 optimizer.step()
