@@ -35,7 +35,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                            
 
     # init delta (adv. perturbation) - FILL ME
-    delta = torch.zeros(data_tr[0][0].shape, requires_grad=True).to(device)
+    delta = torch.zeros(data_tr[0][0].shape, requires_grad=True, device=device)
 
     # total number of updates - FILL ME
     total_num_iters = int(np.ceil(epochs / m))
