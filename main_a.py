@@ -140,8 +140,8 @@ if __name__=='__main__':
     args = parse_arguments()
     if args.train:
         print('Training standard model...')
-        # t = run_standard_training()
-        # print(f'Time (in seconds) to complete standard training: {t:0.4f}')
+        t = run_standard_training()
+        print(f'Time (in seconds) to complete standard training: {t:0.4f}')
         print('Adversarially training a model...')
         t = run_free_adv_training()
         print(f'Time (in seconds) to complete free adversarial training: {t:0.4f}')
@@ -158,5 +158,5 @@ Training standard model...
   cpuset_checked))
 Time (in seconds) to complete standard training: 981.8386
 Adversarially training a model...
-Time (in seconds) to complete free adversarial training: 0.0001
+Time (in seconds) to complete free adversarial training: 469.2151
 """

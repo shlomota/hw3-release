@@ -35,67 +35,44 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                            
 
     # init delta (adv. perturbation) - FILL ME
-    delta = torch.zeros([batch_size, data_tr[0][0].shape[0], data_tr[0][0].shape[1], data_tr[0][0].shape[2]]).to(device)
-    a = 5
+    delta = torch.zeros(data_tr[0][0].shape).to(device)
 
     # total number of updates - FILL ME
-    
+    total_num_iters = int(np.ceil(epochs / m))
 
     # when to update lr
     scheduler_step_iters = int(np.ceil(len(data_tr)/batch_size))
 
     # train - FILLE ME
-    counter = 0
+    for i in range(total_num_iters):
 
-    for i in range(epochs // m):
-
-        for i, data in enumerate(loader_tr, 0):
+        for j, data in enumerate(loader_tr, 0):
             # get inputs and labels
             inputs, labels = data[0].to(device), data[1].to(device)
 
-            for j in range(m):
+            for k in range(m):
                 # zero the parameter gradients
                 optimizer.zero_grad()
 
                 # Ascend on the global noise
                 noise_batch = torch.tensor(delta[0:inputs.size(0)], requires_grad=True).cuda()
-                # import pdb;pdb.set_trace()
                 in1 = inputs + noise_batch
                 in1.clamp_(0, 1.0)
                 # in1.sub_(mean).div_(std).
                 output = model(in1)
                 loss = criterion(output, labels)
 
-                # prec1, prec5 = accuracy(output, target, topk=(1, 5))
-                # losses.update(loss.item(), input.size(0))
-                # top1.update(prec1[0], input.size(0))
-                # top5.update(prec5[0], input.size(0))
-
                 # compute gradient and do SGD step
-                optimizer.zero_grad()
                 loss.backward()
-
-                # Update the noise for the next iteration
-                # import pdb;pdb.set_trace()
-                lr = lr_scheduler.get_last_lr()
-                if type(lr) == list:
-                    lr = lr[-1]
-                pert = lr * torch.sign(noise_batch.grad)
-                # pert = fgsm(noise_batch.grad, configs.ADV.fgsm_step)
-                delta[0:inputs.size(0)] += pert.data
-                delta.clamp_(-eps, eps)
-
                 optimizer.step()
 
-                counter += 1
+                pert = eps * torch.sign(noise_batch.grad)
+                delta[0:inputs.size(0)] += pert.data
+                delta.clamp_(-eps, eps)
 
             # if counter % scheduler_step_iters == 0:
             lr_scheduler.step()
 
-    """
-    def fgsm(gradz, step_size):
-    return step_size*torch.sign(gradz)
-    """
     
     # done
     return model
