@@ -160,3 +160,10 @@ Time (in seconds) to complete standard training: 981.8386
 Adversarially training a model...
 Time (in seconds) to complete free adversarial training: 469.2151
 """
+
+
+"""
+Time (in seconds) to complete standard training: 1267.1469
+Adversarially training a model...
+Time (in seconds) to complete free adversarial training: 483.9196
+"""

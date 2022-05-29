@@ -44,6 +44,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
     scheduler_step_iters = int(np.ceil(len(data_tr)/batch_size))
 
     # train - FILLE ME
+    count = 0
     for i in range(total_num_iters):
 
         for j, data in enumerate(loader_tr, 0):
@@ -69,9 +70,10 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                 pert = eps * torch.sign(noise_batch.grad)
                 delta[0:inputs.size(0)] += pert.data
                 delta.clamp_(-eps, eps)
+                count += 1
 
-            # if counter % scheduler_step_iters == 0:
-            lr_scheduler.step()
+                if count % scheduler_step_iters == 0:
+                    lr_scheduler.step()
 
     
     # done
