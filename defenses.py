@@ -68,7 +68,8 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                 optimizer.step()
 
                 pert = eps * torch.sign(delta.grad)
-                delta[0:inputs.size(0)] += pert.data
+                # delta[0:inputs.size(0)] += pert.data
+                delta += pert.data
                 delta.clamp_(-eps, eps)
                 count += 1
 
