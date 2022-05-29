@@ -86,7 +86,7 @@ def run_free_adv_training():
     # execute training
     t0 = time.time()
     model = defenses.free_adv_train(model, data_tr, criterion, optimizer, \
-                                    scheduler, consts.PGD_Linf_EPS, device)
+                                    scheduler, consts.PGD_Linf_EPS, device, m=6)
     train_time = time.time()-t0
 
     # move model to cpu and store it
@@ -139,9 +139,9 @@ def run_evaluation():
 if __name__=='__main__':
     args = parse_arguments()
     if args.train:
-        # print('Training standard model...')
-        # t = run_standard_training()
-        # print(f'Time (in seconds) to complete standard training: {t:0.4f}')
+        print('Training standard model...')
+        t = run_standard_training()
+        print(f'Time (in seconds) to complete standard training: {t:0.4f}')
         print('Adversarially training a model...')
         t = run_free_adv_training()
         print(f'Time (in seconds) to complete free adversarial training: {t:0.4f}')
@@ -167,3 +167,18 @@ Time (in seconds) to complete standard training: 1267.1469
 Adversarially training a model...
 Time (in seconds) to complete free adversarial training: 483.9196
 """
+
+
+"""
+
+Model accuracy:
+        - standard    : 0.9133
+        - adv_trained : 0.8928
+Success rate of untargeted white-box PGD:
+        - standard  : 0.8800
+        - adv_trained: 0.5515
+
+"""
+
+
+"""m=6"""
