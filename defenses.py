@@ -35,7 +35,7 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                            
 
     # init delta (adv. perturbation) - FILL ME
-    delta = torch.zeros(data_tr[0][0].shape).to(device)
+    delta = torch.zeros(data_tr[0][0].shape, requires_grad=True).to(device)
 
     # total number of updates - FILL ME
     total_num_iters = int(np.ceil(epochs / m))
@@ -56,18 +56,18 @@ def free_adv_train(model, data_tr, criterion, optimizer, lr_scheduler, \
                 optimizer.zero_grad()
 
                 # Ascend on the global noise
-                noise_batch = torch.tensor(delta[0:inputs.size(0)], requires_grad=True).cuda()
-                in1 = inputs + noise_batch
-                in1.clamp_(0, 1.0)
+                # noise_batch = torch.tensor(delta[0:inputs.size(0)], requires_grad=True).cuda()
+                xadv = inputs + delta
+                xadv.clamp_(0, 1.0)
                 # in1.sub_(mean).div_(std).
-                output = model(in1)
+                output = model(xadv)
                 loss = criterion(output, labels)
 
                 # compute gradient and do SGD step
                 loss.backward()
                 optimizer.step()
 
-                pert = eps * torch.sign(noise_batch.grad)
+                pert = eps * torch.sign(delta.grad)
                 delta[0:inputs.size(0)] += pert.data
                 delta.clamp_(-eps, eps)
                 count += 1
