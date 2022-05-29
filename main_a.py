@@ -86,7 +86,7 @@ def run_free_adv_training():
     # execute training
     t0 = time.time()
     model = defenses.free_adv_train(model, data_tr, criterion, optimizer, \
-                                    scheduler, consts.PGD_Linf_EPS, device, m=3)
+                                    scheduler, consts.PGD_Linf_EPS, device)
     train_time = time.time()-t0
 
     # move model to cpu and store it
