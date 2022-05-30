@@ -34,6 +34,9 @@ def run_evaluation(sigma):
 
     # load test data
     data_test = utils.TMLDataset('test', transform=transforms.ToTensor())
+    # data_test.data = data_test.data[:10] #TODO:remove
+    # print("using partial data")
+
     loader_test = DataLoader(data_test,
                              batch_size=1,
                              shuffle=True,
@@ -63,7 +66,7 @@ def plot_radii(radii):
     # derive x and y from the certified radii - FILL ME
 
     x = sorted(list(set(radii)))
-    for i, thresh in x:
+    for thresh in x:
         acc = np.sum(np.array(radii) >= thresh) / len(radii)
         y += [acc]
     
