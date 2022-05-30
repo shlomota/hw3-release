@@ -142,10 +142,14 @@ class SmoothedModel():
         c = np.argmax(counts)
         counts = self._sample_under_noise(x, n, batch_size)
 
-        p0 = proportion_confint(counts[c], sum(counts), alpha)
-        import pdb;pdb.set_trace()
-        # compute lower bound on p_c - FILL ME
 
+        # compute lower bound on p_c - FILL ME
+        p_c = proportion_confint(counts[c], sum(counts), alpha)[0]
+        if p_c > 0.5:
+            radius = norm.ppf(p_c)
+        else:
+            c = ABSTAIN
+            radius = 0
 
         # done
         return c, radius
