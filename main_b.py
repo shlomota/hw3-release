@@ -66,6 +66,7 @@ def plot_radii(radii):
     # derive x and y from the certified radii - FILL ME
 
     x = sorted(list(set(radii)))
+    x = [a for a in x if a > 0]
     for thresh in x:
         acc = np.sum(np.array(radii) >= thresh) / len(radii)
         y += [acc]

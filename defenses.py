@@ -147,7 +147,7 @@ class SmoothedModel():
         # compute lower bound on p_c - FILL ME
         p_c = proportion_confint(counts[c], sum(counts), alpha)[0]
         if p_c > 0.5:
-            radius = norm.ppf(p_c)
+            radius = self.sigma * norm.ppf(p_c)
         else:
             c = SmoothedModel.ABSTAIN
             radius = 0
