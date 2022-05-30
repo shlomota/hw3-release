@@ -119,3 +119,22 @@ if __name__=='__main__':
     mask = mask.to(device)
     trigger = trigger.to(device)
     evaluate_backdoor_success(backdoored_model_id, mask, trigger, c_t)
+
+
+
+"""
+
+Accuracy of model 0: 0.9107
+Accuracy of model 1: 0.9168
+Norm of trigger targeting class 0 in model 0: 1505.1633
+Norm of trigger targeting class 1 in model 0: 1530.6731
+Norm of trigger targeting class 2 in model 0: 1533.6812
+Norm of trigger targeting class 3 in model 0: 1551.2123
+Norm of trigger targeting class 0 in model 1: 1539.1597
+Norm of trigger targeting class 1 in model 1: 1550.1891
+Norm of trigger targeting class 2 in model 1: 1538.1399
+Norm of trigger targeting class 3 in model 1: 1536.1045
+Which model is backdoored (0/1)? 0
+Which class is the backdoor targeting (0/1/2/3)? 0
+Backdoor success rate: 1.0000
+"""
