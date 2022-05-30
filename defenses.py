@@ -191,14 +191,21 @@ class NeuralCleanse:
         - trigger: 
         """
         # randomly initialize mask and trigger in [0,1] - FILL ME
-        mask = torch.rand(self.dim, device=device, requires_grad=True)
+        mask_dim = list(self.dim)
+        mask_dim[1] = 1 # remove color dim from mask
+        mask = torch.rand(mask_dim, device=device, requires_grad=True)
         trigger = torch.rand(self.dim, device=device, requires_grad=True)
 
         # run self.niters of SGD to find (potential) trigger and mask - FILL ME
-        for i in range(self.niters):
-            for x,y in data_loader:
-                inp_x = 5
-                self.model(x)
+        for i, (x, y) in enumerate(data_loader):
+            inp_x = (1 - mask) * x + mask * trigger
+            out = self.model(inp_x)
+            loss = self.loss_func(out, c_t) + self.lambda_c * mask.norm(ord=1)
+            loss.backward()
+            mask.data -= self.step_size * mask.grad
+            trigger.data -= self.step_size * trigger.grad
+            if i >= self.niters - 1:
+                break
         
 
         # done
