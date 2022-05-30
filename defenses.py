@@ -148,7 +148,7 @@ class SmoothedModel():
         if p_c > 0.5:
             radius = norm.ppf(p_c)
         else:
-            c = ABSTAIN
+            c = SmoothedModel.ABSTAIN
             radius = 0
 
         # done
