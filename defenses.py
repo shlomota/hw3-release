@@ -108,7 +108,6 @@ class SmoothedModel():
         preds = None
 
         for i in range(n):
-            import pdb;pdb.set_trace()
             noise = torch.normal(0.0, std=self.sigma, size=[batch_size, x.shape[1], x.shape[2], x.shape[3]]).to(device)
             x_noisy = noise + x
             out = self.model(x_noisy)
