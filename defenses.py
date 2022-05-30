@@ -191,9 +191,9 @@ class NeuralCleanse:
         - trigger: 
         """
         # randomly initialize mask and trigger in [0,1] - FILL ME
-        mask_dim = list(self.dim)
-        mask_dim[1] = 1 # remove color dim from mask
-        mask = torch.rand(mask_dim, device=device, requires_grad=True)
+        # mask_dim = list(self.dim)
+        # mask_dim[1] = 1 # remove color dim from mask (this is what is mentioned in the paper, but this excercise expects 3d mask)
+        mask = torch.rand(self.dim, device=device, requires_grad=True)
         trigger = torch.rand(self.dim, device=device, requires_grad=True)
 
         # run self.niters of SGD to find (potential) trigger and mask - FILL ME
