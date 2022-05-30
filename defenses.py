@@ -103,13 +103,24 @@ class SmoothedModel():
         """
         # FILL ME
         device = next(self.model.parameters()).device
+        n_labels = 4
+        frequencies = [0, 0, 0, 0]
+        preds = None
+
         for i in range(n):
             import pdb;pdb.set_trace()
             noise = torch.normal(0.0, std=self.sigma, size=[batch_size, x.shape[1], x.shape[2], x.shape[3]]).to(device)
             x_noisy = noise + x
-            a = 5
-        self.model
-        pass
+            out = self.model(x_noisy)
+            if preds is None:
+                preds = out.argmax(dim=1)
+            else:
+                preds = torch.cat([preds, out.argmax(dim=1)])
+
+        for j in range(n_labels):
+            frequencies[j] = (preds == j).sum().item()
+
+        return frequencies
         
     def certify(self, x, n0, n, alpha, batch_size):
         """
@@ -129,9 +140,13 @@ class SmoothedModel():
         
         # find prediction (top class c) - FILL ME
         counts = self._sample_under_noise(x, n0, batch_size)
-        
+        c = np.argmax(counts)
+        counts = self._sample_under_noise(x, n, batch_size)
+
+        p0 = proportion_confint(counts[c], sum(counts), alpha)
+        import pdb;pdb.set_trace()
         # compute lower bound on p_c - FILL ME
-        
+
 
         # done
         return c, radius
