@@ -213,7 +213,6 @@ class NeuralCleanse:
 
                 # if i >= self.niters - 1: #unclear instructions regarding number of iterations
                 #     break
-            print(loss.item())
 
 
         # done
