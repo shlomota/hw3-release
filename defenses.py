@@ -210,10 +210,11 @@ class NeuralCleanse:
                 trigger.data -= self.step_size * trigger.grad
                 mask.data = mask.data.clip(0, 1)
                 trigger.data = trigger.data.clip(0, 1)
-                print(loss.item)
+
                 # if i >= self.niters - 1: #unclear instructions regarding number of iterations
                 #     break
-        
+            print(loss.item())
+
 
         # done
         return mask, trigger
