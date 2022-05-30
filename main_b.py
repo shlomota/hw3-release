@@ -66,7 +66,7 @@ def plot_radii(radii):
     # derive x and y from the certified radii - FILL ME
 
     x = sorted(list(set(radii)))
-    print(len(x))
+    print(len(x)) #TODO: remove prints
     print(len(radii))
     print(x)
 

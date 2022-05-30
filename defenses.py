@@ -198,6 +198,7 @@ class NeuralCleanse:
 
         # run self.niters of SGD to find (potential) trigger and mask - FILL ME
         for i, (x, y) in enumerate(data_loader):
+            x = x.to(device)
             inp_x = (1 - mask) * x + mask * trigger
             out = self.model(inp_x)
             loss = self.loss_func(out, c_t) + self.lambda_c * mask.norm(ord=1)
