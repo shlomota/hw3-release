@@ -200,7 +200,7 @@ class NeuralCleanse:
         # run self.niters of SGD to find (potential) trigger and mask - FILL ME
         for j in range((self.niters // len(data_loader)) + 1):
             for i, (x, y) in enumerate(data_loader):
-                import pdb;pdb.set_trace()
+                # import pdb;pdb.set_trace()
                 x = x.to(device)
                 inp_x = (1 - mask) * x + mask * trigger
                 out = self.model(inp_x)
@@ -210,6 +210,7 @@ class NeuralCleanse:
                 trigger.data -= self.step_size * trigger.grad
                 mask.data = mask.data.clip(0, 1)
                 trigger.data = trigger.data.clip(0, 1)
+                print(loss.item)
                 # if i >= self.niters - 1: #unclear instructions regarding number of iterations
                 #     break
         
