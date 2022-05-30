@@ -20,6 +20,7 @@ np.random.seed(consts.SEED)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 device = "cpu" #TODO: restore
+print("device is cpu")
 
 def run_evaluation(sigma):
 
