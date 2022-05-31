@@ -119,32 +119,32 @@ def run_evaluation():
                              num_workers=2)
 
     # model accuracy
-    print('Model accuracy:')
+    #print('Model accuracy:')
     for mtype in trained_models:
         acc = utils.compute_accuracy(trained_models[mtype],
                                      loader_test,
                                      device)
-        print(f'\t- {mtype:12s}: {acc:0.4f}')
+        #print(f'\t- {mtype:12s}: {acc:0.4f}')
 
     # adversarial robustness
-    print('Success rate of untargeted white-box PGD:')
+    #print('Success rate of untargeted white-box PGD:')
     for mtype in trained_models:
         model = trained_models[mtype]
         attack = attacks.PGDAttack(model, eps=consts.PGD_Linf_EPS)
         x_adv, y = utils.run_whitebox_attack(attack, loader_test, False, device, n_classes=4)
         sr = utils.compute_attack_success(model, x_adv, y, consts.BATCH_SIZE, False, device)
-        print(f'\t- {mtype:10s}: {sr:0.4f}')
+        #print(f'\t- {mtype:10s}: {sr:0.4f}')
 
 
 if __name__=='__main__':
     args = parse_arguments()
     if args.train:
-        print('Training standard model...')
+        #print('Training standard model...')
         t = run_standard_training()
-        print(f'Time (in seconds) to complete standard training: {t:0.4f}')
-        print('Adversarially training a model...')
+        #print(f'Time (in seconds) to complete standard training: {t:0.4f}')
+        #print('Adversarially training a model...')
         t = run_free_adv_training()
-        print(f'Time (in seconds) to complete free adversarial training: {t:0.4f}')
+        #print(f'Time (in seconds) to complete free adversarial training: {t:0.4f}')
     else:
         run_evaluation()
 
@@ -178,14 +178,11 @@ Time (in seconds) to complete standard training: 307.6106
 Adversarially training a model...
 Time (in seconds) to complete free adversarial training: 278.7229
 
-
 Model accuracy:
         - standard    : 0.9145
         - adv_trained : 0.8748
 Success rate of untargeted white-box PGD:
         - standard  : 0.8865
         - adv_trained: 0.5190
-
-
 
 """

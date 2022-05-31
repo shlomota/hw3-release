@@ -35,7 +35,7 @@ def evaluate_accuracy():
 
         # compute and print accuracy
         acc = utils.compute_accuracy(model, loader_test, device)
-        print(f'Accuracy of model {model_id}: {acc:0.4f}')
+        #print(f'Accuracy of model {model_id}: {acc:0.4f}')
 
 def run_neural_cleanse():
     # init data loader
@@ -66,7 +66,7 @@ def run_neural_cleanse():
             masks[model_id][c_t] = mask.to('cpu')
             triggers[model_id][c_t] = trigger.to('cpu')
             norm = mask.sum()
-            print(f'Norm of trigger targeting class {c_t} in model {model_id}: {norm:0.4f}')
+            #print(f'Norm of trigger targeting class {c_t} in model {model_id}: {norm:0.4f}')
 
     # ask for user input
     selected_mid = int(input('Which model is backdoored (0/1)? '))
@@ -100,7 +100,7 @@ def evaluate_backdoor_success(model_id, mask, trigger, c_t):
                                              mask,
                                              trigger,
                                              c_t)
-    print(f'Backdoor success rate: {sr:0.4f}')
+    # #print(f'Backdoor success rate: {sr:0.4f}')
         
 if __name__=='__main__':
     # evaluate the accuracy of the two models
@@ -133,6 +133,21 @@ Norm of trigger targeting class 0 in model 1: 219.2624
 Norm of trigger targeting class 1 in model 1: 248.9731
 Norm of trigger targeting class 2 in model 1: 247.9232
 Norm of trigger targeting class 3 in model 1: 227.9924
+Which model is backdoored (0/1)? 0
+Which class is the backdoor targeting (0/1/2/3)? 0
+Backdoor success rate: 0.9990
+
+0.05 lr
+Accuracy of model 0: 0.9107
+Accuracy of model 1: 0.9168
+Norm of trigger targeting class 0 in model 0: 99.7725
+Norm of trigger targeting class 1 in model 0: 156.6398
+Norm of trigger targeting class 2 in model 0: 190.8241
+Norm of trigger targeting class 3 in model 0: 153.1340
+Norm of trigger targeting class 0 in model 1: 155.6673
+Norm of trigger targeting class 1 in model 1: 139.1700
+Norm of trigger targeting class 2 in model 1: 166.1973
+Norm of trigger targeting class 3 in model 1: 170.2443
 Which model is backdoored (0/1)? 0
 Which class is the backdoor targeting (0/1/2/3)? 0
 Backdoor success rate: 0.9990

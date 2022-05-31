@@ -19,8 +19,6 @@ random.seed(consts.SEED)
 np.random.seed(consts.SEED)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-# device = "cpu" #TODO: restore
-# print("device is cpu")
 
 def run_evaluation(sigma):
 
@@ -34,8 +32,6 @@ def run_evaluation(sigma):
 
     # load test data
     data_test = utils.TMLDataset('test', transform=transforms.ToTensor())
-    # data_test.data = data_test.data[:10] #TODO:remove
-    # print("using partial data")
 
     loader_test = DataLoader(data_test,
                              batch_size=1,
@@ -66,9 +62,9 @@ def plot_radii(radii):
     # derive x and y from the certified radii - FILL ME
 
     x = sorted(list(set(radii)))
-    print(len(x)) #TODO: remove prints
-    print(len(radii))
-    print(x)
+    #print(len(x))
+    #print(len(radii))
+    #print(x)
 
     x = [a for a in x if a > 0]
     for i, thresh in enumerate(x):
@@ -82,7 +78,7 @@ if __name__=='__main__':
     sigmas = [0.12, 0.25]
     radii = {}
     for sigma in sigmas:
-        print(f'Certifying L2 radii with sigma={sigma:0.4f}')
+        #print(f'Certifying L2 radii with sigma={sigma:0.4f}')
         radii[sigma] = run_evaluation(sigma)
 
     # plot
